@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { apiKey } from '../../assets/apiKey.js';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-weather',
@@ -7,5 +7,13 @@ import { apiKey } from '../../assets/apiKey.js';
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent {
+  constructor(private _apiService:ApiService) {}
+
+  city:string = 'Toulouse';
+  apiData:any;
+
+  ngOnInit() {
+    this._apiService.getWeather(this.city).subscribe(result => this.apiData = result);
+  }
 
 }

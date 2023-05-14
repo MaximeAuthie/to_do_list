@@ -1,1 +1,9 @@
-<p>weather works!</p>
+<div class="card text-white bg-primary mb-3 mx-auto text-center mt-5" style="max-width: 20rem;">
+  <div class="card-header"><h4>Météo à {{ apiData.name }}</h4> </div>
+  <div class="card-body">
+    <img src="http://openweathermap.org/img/wn/{{ apiData.weather[0].icon }}@2x.png" alt="">
+    <p class="card-text">Température : {{ apiData.main.temp }} °C</p>
+    <p class="card-text">Pression atmosphérique : {{ apiData.main.pressure }} hPa</p>
+    <p class="card-text">Humidité : {{ apiData.main.humidity }} %</p>
+  </div>
+</div>
