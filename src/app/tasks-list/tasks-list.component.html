@@ -1,1 +1,10 @@
+<h1 class="text-center mt-5">{{ activeList.title }}</h1>
 
+<app-task-input (taskCreated)="addNewTask($event)"></app-task-input>
+
+<div *ngFor="let task of tasks" class="card border-success mt-3 w-75 mx-auto">
+  <div class="card-header">{{ task.title }}</div>
+  <div class="card-body">
+    {{ task.description }}
+  </div>
+</div>
