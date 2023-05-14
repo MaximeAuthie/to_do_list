@@ -14,5 +14,7 @@ export class TaskInputComponent {
 
   createNewTask() {
     this.taskCreated.emit({taskTitle : this.title, taskDescription: this.description});
+    this.title = '';
+    this.description = '';
   }
 }
