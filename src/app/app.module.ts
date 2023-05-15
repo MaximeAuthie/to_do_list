@@ -17,6 +17,7 @@ import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { UserAccountComponent } from './user-account/user-account.component';
 import { WeatherComponent } from './weather/weather.component';
 import { TaskInputComponent } from './task-input/task-input.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 //! Déclaration des routes du projet
 const appRoutes:Routes = [
@@ -33,7 +34,8 @@ const appRoutes:Routes = [
     TasksListComponent,
     UserAccountComponent,
     WeatherComponent,
-    TaskInputComponent
+    TaskInputComponent,
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule,
