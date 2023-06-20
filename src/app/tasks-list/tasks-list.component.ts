@@ -2,19 +2,19 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 //! Interfaces permettant de définir un typage pour les variable de la classe TasksListComponent
-interface Task {
-  taskId:number;
-  listId:number;
-  title:string;
-  description:string;
+export interface Task {
+  taskId: number;
+  listId: number;
+  title: string;
+  description: string;
   isCheck: boolean;
 }
 
 interface List {
-  id:number;
-  title:string;
-  tasksNumber:number;
-  checkedTasksNumber:number;
+  id: number;
+  title: string;
+  tasksNumber: number;
+  checkedTasksNumber: number;
 }
 
 @Component({
@@ -27,14 +27,14 @@ export class TasksListComponent {
 
   userId:number = 0;
 
-  activeList:List = {
+  activeList: List = {
     id: 0,
     title: '',
     tasksNumber: 0,
     checkedTasksNumber: 0
   };
 
-  tasks:Array<Task>=[];
+  tasks: Array<Task>=[];
 
   newTask:Task = {
     taskId: 0,
@@ -44,7 +44,7 @@ export class TasksListComponent {
     isCheck: false
   }
 
-  progressRate:string = '';
+  progressRate: string = '';
 
   constructor(private route:ActivatedRoute) {}
 
