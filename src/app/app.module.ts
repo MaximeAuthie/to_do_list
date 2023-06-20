@@ -18,6 +18,26 @@ import { UserAccountComponent } from './user-account/user-account.component';
 import { WeatherComponent } from './weather/weather.component';
 import { TaskInputComponent } from './task-input/task-input.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getDatabase } from "firebase/database";
+
+//! Déclaration de la configuration du projet Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCnJt6FGjWrZhR1ozZxTCWuFviTWO23mhw",
+  authDomain: "to-do-list-angular-f0a59.firebaseapp.com",
+  projectId: "to-do-list-angular-f0a59",
+  storageBucket: "to-do-list-angular-f0a59.appspot.com",
+  messagingSenderId: "581275983118",
+  appId: "1:581275983118:web:c7b6b50179ab1c6ad50b5f",
+  measurementId: "G-TC6JKXJ0G4",
+  databaseURL: "https://to-do-list-angular-f0a59-default-rtdb.europe-west1.firebasedatabase.app/",
+};
+
+//! Initialisation de Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const database = getDatabase(app);
 
 //! Déclaration des routes du projet
 const appRoutes:Routes = [
@@ -46,4 +66,7 @@ const appRoutes:Routes = [
   providers: [],
   bootstrap: [AppComponent]
 })
+
+
+
 export class AppModule { }
