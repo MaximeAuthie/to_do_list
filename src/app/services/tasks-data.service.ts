@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Data } from '@angular/router';
-import { Database, ref, set } from "firebase/database";
+import { Database, getDatabase, ref, set } from "firebase/database";
 import { Task } from '../tasks-list/tasks-list.component';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class TasksDataServiceService {
+export class TasksDataService {
 
-  constructor(private _dataBase: Database) { }
+  // constructor(private _dataBase: Database) { }
 
   addTask(task: Task) {
-    set(ref(this._dataBase, 'tasks/' + task.taskId), {
+    const db: Database = getDatabase();
+
+    set(ref(db, 'tasks/' + task.taskId), {
       id: task.taskId,
       title: task.title,
       description: task.description,
