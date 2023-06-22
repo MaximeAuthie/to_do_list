@@ -21,6 +21,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase } from "firebase/database";
+import { ListInputComponent } from './list-input/list-input.component';
 
 //! Déclaration de la configuration du projet Firebase
 const firebaseConfig = {
@@ -37,7 +38,7 @@ const firebaseConfig = {
 //! Initialisation de Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const database = getDatabase(app);
+export const dataBase = getDatabase(app);
 
 //! Déclaration des routes du projet
 const appRoutes:Routes = [
@@ -55,7 +56,8 @@ const appRoutes:Routes = [
     UserAccountComponent,
     WeatherComponent,
     TaskInputComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    ListInputComponent
   ],
   imports: [
     BrowserModule,
