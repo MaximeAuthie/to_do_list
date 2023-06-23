@@ -18,8 +18,8 @@ export class ListInputComponent {
   createNewList() {
     const newList: List = {
       userId:             1,
-      listId:             1,
       title:              this.title,
+      description:        this.description,
       tasksNumber:        0,
       checkedTasksNumber: 0
     }
