@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-interface List {
+export interface List {
     userId:number;
-    listId:number;
     title:string;
+    description:string;
     tasksNumber:number;
     checkedTasksNumber :number;
 }
@@ -21,43 +21,43 @@ export class ListsListComponent {
     this.lists = [
   {
     userId: 1,
-    listId: 1,
     title: 'Courses',
+    description: '',
     tasksNumber: 4,
     checkedTasksNumber : 1
   },
   {
     userId: 1,
-    listId: 2,
     title: 'Fournitures',
+    description: '',
     tasksNumber: 13,
     checkedTasksNumber : 1
   },
   {
     userId: 1,
-    listId: 3,
     title: 'Vacances',
+    description: '',
     tasksNumber: 28,
     checkedTasksNumber : 1
   },
   {
     userId: 1,
-    listId: 4,
     title: 'Projet ToDoList',
+    description: '',
     tasksNumber: 7,
     checkedTasksNumber : 1
   },
   {
     userId: 1,
-    listId: 5,
     title: 'Projet Brut Messenger',
+    description: '',
     tasksNumber: 14,
     checkedTasksNumber : 1
   },
   {
     userId: 1,
-    listId: 6,
     title: 'Bricolage',
+    description: '',
     tasksNumber: 5,
     checkedTasksNumber : 1
   }
