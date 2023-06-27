@@ -1,21 +1,15 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { List } from '../lists-list/lists-list.component';
+import { getDatabase, ref, onValue, DataSnapshot} from "firebase/database";
 
 //! Interfaces permettant de définir un typage pour les variable de la classe TasksListComponent
 export interface Task {
-  taskId: number;
-  listId: number;
   title: string;
   description: string;
   isCheck: boolean;
 }
 
-interface List {
-  id: number;
-  title: string;
-  tasksNumber: number;
-  checkedTasksNumber: number;
-}
 
 @Component({
   selector: 'app-tasks-list',
@@ -25,80 +19,45 @@ interface List {
 
 export class TasksListComponent {
 
-  userId:number = 0;
+  public listId:string ='';
 
-  activeList: List = {
-    id: 0,
-    title: '',
-    tasksNumber: 0,
-    checkedTasksNumber: 0
+  activList: List = {
+    userId:               '',
+    title:                '',
+    description:          '',
+    tasksNumber:          0,
+    checkedTasksNumber :  0
   };
 
   tasks: Array<Task>=[];
 
   newTask:Task = {
-    taskId: 0,
-    listId: 0,
-    title: '',
-    description: '',
-    isCheck: false
+    title:        '',
+    description:  '',
+    isCheck:      false
   }
 
   progressRate: string = '';
 
   constructor(private route:ActivatedRoute) {}
-
+  getAllTacks(snapshot: DataSnapshot) {
+    //! CODER LA FONCTION
+  }
   ngOnInit() {
     //Récupération de l'ID de la lsite depuis la route
-    this.userId = this.route.snapshot.params['id'];
+    this.listId = this.route.snapshot.params['id'];
 
-    //Récupération des données
-    this.activeList = {
-      id: 1,
-      title: 'Courses',
-      tasksNumber: 4,
-      checkedTasksNumber : 2
-    }
+    const db = getDatabase();
+    const directory = ref(db, 'listsByUser/a1df5f4f4g4ede5de5d4azd89');
+    onValue(directory, (snapshot) => this.getAllTasks(snapshot));
 
-    this.tasks = [
-      {
-        taskId: 1,
-        listId: 1,
-        title: 'Fromage',
-        description: 'Rocamadour si possible, sinon un perail',
-        isCheck: false
-      },
-      {
-        taskId: 2,
-        listId: 1,
-        title: 'Pâté',
-        description: 'Breton évidemment',
-        isCheck: true
-      },
-      {
-        taskId: 3,
-        listId: 1,
-        title: 'Vin rouge',
-        description: 'Sans sulfites!',
-        isCheck: false
-      },
-      {
-        taskId: 4,
-        listId: 1,
-        title: 'Baguette',
-        description: 'Tradition x2',
-        isCheck: false
-      },
-    ]
-
-    //Calcul du taux de progression de la liste
     this.progressRate = this.progressRateCalculation() + '%';
 
   }
 
   addNewTask(taskData: {taskTitle:string, taskDescription:string}) {
-    this.newTask.listId = this.tasks.length + 1;
-    this.newTask.taskId = this.activeList.id;
+    // this.newTask.listId = this.tasks.length + 1;
+    // // this.newTask.taskId = this.activList.id;
     this.newTask.title = taskData.taskTitle;
     this.newTask.description = taskData.taskDescription;
     this.tasks.push(this.newTask);
@@ -110,7 +69,7 @@ export class TasksListComponent {
     this.tasks.splice(taskId,1);
   }
   progressRateCalculation() {
-    return (this.activeList.checkedTasksNumber / this.activeList.tasksNumber) * 100;
+    // return (this.activeList.checkedTasksNumber / this.activeList.tasksNumber) * 100;
   }
 
 }
