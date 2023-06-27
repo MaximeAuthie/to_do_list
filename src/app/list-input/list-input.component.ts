@@ -23,7 +23,7 @@ export class ListInputComponent {
   createNewList() {
     //! Créer un objet de type List
     const newList: List = {
-      userId:             1,
+      userId:             'a1df5f4f4g4ede5de5d4azd89',
       title:              this.title,
       description:        this.description,
       tasksNumber:        0,
