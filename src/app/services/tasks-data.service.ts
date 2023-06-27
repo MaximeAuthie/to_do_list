@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Database, getDatabase, ref, set } from "firebase/database";
+import { Database, getDatabase, ref, set, push } from "firebase/database";
 import { Task } from '../tasks-list/tasks-list.component';
 
 @Injectable({
@@ -8,18 +8,20 @@ import { Task } from '../tasks-list/tasks-list.component';
 
 export class TasksDataService {
 
-  // constructor(private _dataBase: Database) { }
+  addTask(task: Task, listId:string) {
+    console.log(listId);
 
-  addTask(task: Task) {
+    //! Définition des variables nécessaire à la fonction set
     const db: Database = getDatabase();
+    const postTaskRef = ref(db, 'tasksByList/' + listId);
+    const newPostRef = push(postTaskRef);
 
-    set(ref(db, 'tasks/' + task.taskId), {
-      id: task.taskId,
+    //! Appel du web modular API
+    const response = set(newPostRef, {
       title: task.title,
       description: task.description,
-      listId: task.listId,
-      isChecked: task.isCheck
-    })
+      isCheck: task.isCheck
+   })
   }
 
 }
