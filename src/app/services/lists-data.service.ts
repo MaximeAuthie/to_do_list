@@ -11,7 +11,7 @@ export class ListsDataService {
 
     //! Définition des variables nécessaire à la fonction set
     const db: Database = getDatabase();
-    const postListRef = ref(db, 'lists/user'+list.userId);
+    const postListRef = ref(db, 'listsByUser/' + list.userId);
     const newPostRef = push(postListRef);
 
     //! Appel du web modular API
@@ -24,9 +24,9 @@ export class ListsDataService {
     })
   }
 
-  async readLists (userId: number) {
+  async readLists (userId: string) {
     const dbRef = ref(getDatabase());
-    const directory: string = 'lists/user' + userId;
+    const directory: string = 'usersLists/' + userId + '/lists';
     get(child(dbRef, directory)).then((snapshot) => {
       if (snapshot.exists()) {
         console.log(snapshot.val());
