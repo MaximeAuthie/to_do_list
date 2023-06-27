@@ -1,6 +1,7 @@
-<h1 class="text-center mt-5">{{ activeList.title }}</h1>
+<h1 class="text-center mt-5">{{ activList.title }}</h1>
+<p>{{ activList.description }}</p>
 
-<app-task-input (taskCreated)="addNewTask($event)"></app-task-input>
+<app-task-input [listId]="listId" (taskCreated)="addNewTask($event)"></app-task-input>
 <app-progress-bar [progressRate]="progressRate"></app-progress-bar>
 <div *ngFor="let task of tasks; let i=index" [ngClass]="{'bg-success text-light': task.isCheck}" class="card border-success mb-3 w-75 mx-auto">
   <div class="card-header d-flex justify-content-between align-items-center">
