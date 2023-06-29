@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Database, getDatabase, ref, set, push, get, child } from "firebase/database";
 import { List } from '../lists-list/lists-list.component';
+import { retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class ListsDataService {
 
   async addList(list: List) {
@@ -22,6 +25,28 @@ export class ListsDataService {
         tasksNumber:list.tasksNumber,
         checkedTasksNumber : list.checkedTasksNumber
     })
+  }
+
+   getList (userId: string, listId: string) {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, 'listsByUser/' + userId + '/' + listId ))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          let returnedList: List = {
+            title:                snapshot.val().title,
+            description:          snapshot.val().description,
+            userId:               snapshot.val().userId,
+            tasksNumber:          snapshot.val().tasksNumber,
+            checkedTasksNumber :  snapshot.val().checkedTasksNumber
+          }
+          console.log(returnedList);
+          return returnedList;
+        } else {
+          return "error";
+        }
+      }).catch((error) => {
+        return error;
+      });
   }
 
   async readLists (userId: string) {
