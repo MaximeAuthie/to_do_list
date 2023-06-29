@@ -32,7 +32,7 @@ export class ListsListComponent {
 
  //! Méthodes
  getAllLists(snapshot: DataSnapshot) {
-  // this._listDataService.readLists('a1df5f4f4g4ede5de5d4azd89');
+
   let _listArray: Array<importedList> = [];
 
   snapshot.forEach((aList) => {
