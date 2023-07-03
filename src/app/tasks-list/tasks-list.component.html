@@ -1,14 +1,14 @@
 <h1 class="text-center mt-5">{{ activList.title }}</h1>
 <p class="text-center">{{ activList.description }}</p>
 
-<app-task-input [listId]="listId" (taskCreated)="addNewTask($event)"></app-task-input>
+<app-task-input [listId]="listId"></app-task-input>
 <app-progress-bar [progressRate]="progressRate"></app-progress-bar>
-<div *ngFor="let task of tasks; let i=index" [ngClass]="{'bg-success text-light': task.isCheck}" class="card border-success mb-3 w-75 mx-auto">
+<div *ngFor="let task of tasks" [ngClass]="{'bg-success text-light': task.isCheck}" class="card border-success mb-3 w-75 mx-auto">
   <div class="card-header d-flex justify-content-between align-items-center">
     {{ task.title }}
     <div>
-      <i (click)="validateTask(i)" class="bi bi-check-circle-fill text-primary" style="font-size: 2em"></i>
-      <i (click)="removeTask(i)" class="bi bi-x-circle-fill text-secondary" style="font-size: 2em; margin-left: 3vw"></i>
+      <i (click)="validateTask(task.taskId)" class="bi bi-check-circle-fill text-primary" style="font-size: 2em"></i>
+      <i (click)="removeTask(task.taskId)" class="bi bi-x-circle-fill text-secondary" style="font-size: 2em; margin-left: 3vw"></i>
     </div>
   </div>
   <div class="card-body">
