@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Database, getDatabase, ref, set, push } from "firebase/database";
+import { Database, getDatabase, ref, set, push, remove } from "firebase/database";
 import { Task } from '../tasks-list/tasks-list.component';
 
 @Injectable({
@@ -24,4 +24,14 @@ export class TasksDataService {
    })
   }
 
+  removeTask(userId: string, listId: string, taskId: string) {
+    //! Définition des variables nécessaire à la fonction set
+    const db: Database = getDatabase();
+    const taskToDelete = ref(db, 'tasksByList/' + listId + '/' + taskId);
+
+    //! Appel du web modular API
+    remove(taskToDelete);
+    console.log('tâche suprrimée');
+
+  }
 }
