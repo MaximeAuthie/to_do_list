@@ -60,12 +60,24 @@ export class TasksListComponent {
         description:  newTask.description,
         isCheck:      newTask.isCheck
       });
-      console.log(aTask.key);
     })
 
     this.tasks = _tasksArray;
-    console.log(this._listDataService.getList('a1df5f4f4g4ede5de5d4azd89', this.listId));
-
+    // console.log(this._listDataService.getList('a1df5f4f4g4ede5de5d4azd89', this.listId));
+  }
+  getListData():void {
+    this._listDataService.getList('a1df5f4f4g4ede5de5d4azd89', this.listId).then((snapshot) => {
+      if (snapshot.exists()) {
+        this.activList = {
+          userId:               snapshot.val().userId,
+          title:                snapshot.val().title,
+          description:          snapshot.val().description,
+          tasksNumber:          snapshot.val().tasksNumber,
+          checkedTasksNumber :  snapshot.val().checkedTasksNumber
+        }
+        console.log(this.activList);
+      }
+    })
   }
   ngOnInit() {
     //Récupération de l'ID de la liste depuis la route
@@ -77,8 +89,7 @@ export class TasksListComponent {
     onValue(directory, (snapshot) => this.getAllTasks(snapshot));
 
     //Récupération des informations de la liste pour les afficher dans le templa
-    let returnedList:any = this._listDataService.getList('a1df5f4f4g4ede5de5d4azd89', this.listId)
-    console.log(returnedList);
+    this.getListData();
 
     this.progressRate = this.progressRateCalculation() + '%';
 
