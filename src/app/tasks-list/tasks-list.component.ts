@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { List } from '../lists-list/lists-list.component';
 import { getDatabase, ref, onValue, DataSnapshot} from "firebase/database";
 import { ListsDataService } from '../services/lists-data.service';
+import { TasksDataService } from '../services/tasks-data.service';
 
 //! Interfaces permettant de définir un typage pour les variable de la classe TasksListComponent
 export interface Task {
@@ -12,7 +13,7 @@ export interface Task {
 }
 
 interface importedTask {
-  taskId: string | null;
+  taskId: string;
   title: string;
   description: string;
   isCheck: boolean;
@@ -36,7 +37,7 @@ export class TasksListComponent {
     checkedTasksNumber :  0
   };
 
-  tasks: Array<Task>=[];
+  tasks: Array<importedTask>=[];
 
   newTask:Task = {
     title:        '',
@@ -46,20 +47,20 @@ export class TasksListComponent {
 
   progressRate: string = '';
 
-  constructor(private route:ActivatedRoute, private _listDataService: ListsDataService ) {}
+  constructor(private route:ActivatedRoute, private _listDataService: ListsDataService, private _taskDataService: TasksDataService ) {}
   getAllTasks(snapshot: DataSnapshot) {
 
     let _tasksArray: Array<importedTask> = [];
 
     snapshot.forEach((aTask) => {
-      let newTask: importedTask = aTask.val();
-
-      _tasksArray.push({
-        taskId:       aTask.key,
-        title:        newTask.title,
-        description:  newTask.description,
-        isCheck:      newTask.isCheck
-      });
+      if ( aTask.key != null) {
+        _tasksArray.push({
+          taskId:        aTask.key,
+          title:         aTask.val().title,
+          description:   aTask.val().description,
+          isCheck:       aTask.val().isCheck
+        });
+      }
     })
 
     this.tasks = _tasksArray;
@@ -95,18 +96,14 @@ export class TasksListComponent {
 
   }
 
-  addNewTask(taskData: {taskTitle:string, taskDescription:string}) {
-    // this.newTask.listId = this.tasks.length + 1;
-    // // this.newTask.taskId = this.activList.id;
-    this.newTask.title = taskData.taskTitle;
-    this.newTask.description = taskData.taskDescription;
-    this.tasks.push(this.newTask);
+  validateTask(taskId: string) {
+    let taskToValidate = this.tasks.find((task) => task.taskId === taskId);
+    if (taskToValidate != null) {
+      taskToValidate.isCheck = !taskToValidate.isCheck;
+    }
   }
-  validateTask(taskId:number) {
-    this.tasks[taskId].isCheck = !this.tasks[taskId].isCheck;
-  }
-  removeTask(taskId:number) {
-    this.tasks.splice(taskId,1);
+  removeTask(taskId:string) {
+    this._taskDataService.removeTask('a1df5f4f4g4ede5de5d4azd89', this.listId, taskId);
   }
   progressRateCalculation() {
     // return (this.activeList.checkedTasksNumber / this.activeList.tasksNumber) * 100;
